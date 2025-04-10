@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard E-Wallet</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #004aad, #007bff);
+      color: white;
+      margin: 0;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    h1, p {
+      text-align: center;
+    }
+    .saldo {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .actions button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #0062cc;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .actions button:hover {
+      background-color: #004aad;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Selamat Datang</h1>
+    <p>Saldo Anda:</p>
+    <p class="saldo" id="saldoDisplay">Rp 0</p>
+
+    <div class="actions">
+      <button onclick="topUp()">Top Up Rp 50.000</button>
+      <button onclick="transfer()">Transfer Rp 25.000</button>
+      <button onclick="lihatRiwayat()">Lihat Riwayat</button>
+    </div>
+  </div>
+
+  <script>
+    function updateSaldoDisplay() {
+      const saldo = parseInt(localStorage.getItem('saldo')) || 0;
+      document.getElementById('saldoDisplay').textContent = 'Rp ' + saldo.toLocaleString();
+    }
+
+    function topUp() {
+      let saldo = parseInt(localStorage.getItem('saldo')) || 0;
+      saldo += 50000;
+      localStorage.setItem('saldo', saldo);
+      updateSaldoDisplay();
+      alert("Top Up Berhasil!");
+    }
+
+    function transfer() {
+      let saldo = parseInt(localStorage.getItem('saldo')) || 0;
+      if (saldo >= 25000) {
+        saldo -= 25000;
+        localStorage.setItem('saldo', saldo);
+        updateSaldoDisplay();
+        alert("Transfer berhasil!");
+      } else {
+        alert("Saldo tidak cukup!");
+      }
+    }
+
+    function lihatRiwayat() {
+      window.location.href = 'riwayat.html';
+    }
+
+    updateSaldoDisplay();
+  </script>
+</body>
+</html>
